@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "615460788715",
+    "project_id": "fire-app-aead5",
+    "storage_bucket": "fire-app-aead5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615460788715:android:448449eb61d7b4156f21ae",
+        "android_client_info": {
+          "package_name": "com.shahism.fire_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "615460788715-v9vgmr2b7gmlh8ta715pvvbdjvl2k62a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-Uquxy1IUh-rydW36Rzj9N1Nfk657s0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "615460788715-v9vgmr2b7gmlh8ta715pvvbdjvl2k62a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

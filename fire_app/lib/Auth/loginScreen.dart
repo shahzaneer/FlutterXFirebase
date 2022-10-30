@@ -1,4 +1,7 @@
+import 'package:fire_app/Auth/login_with_phone.dart';
+import 'package:fire_app/Utils/utils.dart';
 import 'package:fire_app/Widgets/roundButton.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'SignupSreen.dart';
@@ -15,6 +18,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  bool loading = false;
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   void dispose() {
     super.dispose();
@@ -23,6 +30,34 @@ class _LoginScreenState extends State<LoginScreen> {
 
     emailController.dispose();
     passwordController.dispose();
+  }
+
+  void login() {
+    setState(() {
+      loading = true;
+    });
+    if (_formKey.currentState!.validate()) {
+      _auth
+          .signInWithEmailAndPassword(
+              email: emailController.text.toString(),
+              password: passwordController.text.toString())
+          .then((value) {
+        setState(() {
+          loading = false;
+        });
+
+        Navigator.push(context,
+            MaterialPageRoute(builder: ((context) => const LoginScreen())));
+        // ger login hojaye tou yeh krna!
+        Utils.toastsMessage("Welcome Dear! ${emailController.text.toString()}");
+      }).onError((error, stackTrace) {
+        // ger login na hopaye tou yeh krna
+        Utils.toastsMessage(error.toString());
+        setState(() {
+          loading = false;
+        });
+      });
+    }
   }
 
   @override
@@ -77,12 +112,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 30,
                   ),
                   RoundButton(
+                    isLoading: loading,
                     title: "Login",
-                    onPress: () {
-                      if (!_formKey.currentState!.validate()) {
-                        print("BHarose walo fields tou fill karo pehle");
-                      }
-                    },
+                    onPress: login,
                   )
                 ],
               ),
@@ -102,6 +134,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: const Text("Sign Up"),
               ),
             ],
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Center(
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> const LoginWithPhone()));
+              },
+              child: const Text("Login Via Phone ?"),
+            ),
           )
         ],
       ),

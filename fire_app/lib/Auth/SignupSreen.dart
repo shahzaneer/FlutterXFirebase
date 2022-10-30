@@ -1,4 +1,5 @@
 import 'package:fire_app/Auth/loginScreen.dart';
+import 'package:fire_app/Utils/utils.dart';
 import 'package:fire_app/Widgets/roundButton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool loading = false;
 
+  
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
@@ -26,6 +29,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
     emailController.dispose();
     passwordController.dispose();
   }
+
+
+void signup() {
+if (_formKey.currentState!.validate()) {
+      setState(() {
+        loading = true;
+      });
+      _auth
+          .createUserWithEmailAndPassword(
+              email: emailController.text.toString(),
+              password: passwordController.text.toString())
+          .then((value) {
+        setState(() {
+          loading = false;
+        });
+        // kaam hojaanay k baad yeh krna
+      }).onError((error, stackTrace) {
+        setState(() {
+          loading = false;
+        });
+        // kaam na ho aur error aajayen tou yeh krna
+        Utils.toastsMessage(error.toString());
+      });
+    }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -78,17 +106,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 30,
                   ),
                   RoundButton(
+                    isLoading: loading,
                     title: "Sign Up",
-                    onPress: () {
-                      if (!_formKey.currentState!.validate()) {
-                        print("BHarose walo fields tou fill karo pehle");
-                      }
-                      if (_formKey.currentState!.validate()) {
-                        _auth.createUserWithEmailAndPassword(
-                            email: emailController.text.toString(),
-                            password: passwordController.text.toString());
-                      }
-                    },
+                    onPress: signup
                   )
                 ],
               ),

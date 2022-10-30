@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 class RoundButton extends StatelessWidget {
   final String title;
   final VoidCallback onPress;
-  const RoundButton({super.key, required this.title, required this.onPress});
+  bool isLoading = false;
+  RoundButton(
+      {super.key, required this.title, required this.onPress, this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      
       onTap: onPress,
       child: Ink(
         height: 50,
@@ -18,10 +19,15 @@ class RoundButton extends StatelessWidget {
           color: Colors.pinkAccent,
         ),
         child: Center(
-          child: Text(
-            title,
-            style: const TextStyle(color: Colors.white),
-          ),
+          child: isLoading
+              ? const CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 3,
+                )
+              : Text(
+                  title,
+                  style: const TextStyle(color: Colors.white),
+                ),
         ),
       ),
     );

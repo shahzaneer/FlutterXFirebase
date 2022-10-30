@@ -1,4 +1,5 @@
 import 'package:fire_app/Auth/login_with_phone.dart';
+import 'package:fire_app/FireStore/firestore_posts.dart';
 import 'package:fire_app/Utils/utils.dart';
 import 'package:fire_app/Widgets/roundButton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -46,8 +47,10 @@ class _LoginScreenState extends State<LoginScreen> {
           loading = false;
         });
 
-        Navigator.push(context,
-            MaterialPageRoute(builder: ((context) => const LoginScreen())));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: ((context) => const PostScreenFireStore())));
         // ger login hojaye tou yeh krna!
         Utils.toastsMessage("Welcome Dear! ${emailController.text.toString()}");
       }).onError((error, stackTrace) {
@@ -141,7 +144,10 @@ class _LoginScreenState extends State<LoginScreen> {
           Center(
             child: TextButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> const LoginWithPhone()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginWithPhone()));
               },
               child: const Text("Login Via Phone ?"),
             ),

@@ -1,3 +1,4 @@
+import 'package:fire_app/FireStore/firestore_posts.dart';
 import 'package:fire_app/UI/PostScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,7 @@ class _VerifyCodeState extends State<VerifyCode> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const PostScreen()));
+                          builder: (context) => const PostScreenFireStore()));
                 } catch (e) {
                   setState(() {
                     //  When App is in released mode these debug Print Statements are considered commented

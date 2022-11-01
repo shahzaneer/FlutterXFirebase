@@ -1,3 +1,4 @@
+import 'package:fire_app/Auth/ForgotPassword.dart';
 import 'package:fire_app/Auth/login_with_phone.dart';
 import 'package:fire_app/FireStore/firestore_posts.dart';
 import 'package:fire_app/Utils/utils.dart';
@@ -151,7 +152,20 @@ class _LoginScreenState extends State<LoginScreen> {
               },
               child: const Text("Login Via Phone ?"),
             ),
-          )
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ForgotPasswordScreen()));
+                },
+                child: const Text("Forgot Password"),
+              ),
+          ),
+  
         ],
       ),
     );
